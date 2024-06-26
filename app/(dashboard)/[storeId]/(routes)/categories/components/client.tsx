@@ -5,14 +5,14 @@ import {Plus} from "lucide-react";
 import {useParams, useRouter} from "next/navigation";
 import {Separator} from "@/components/ui/separator";
 import {DataTable} from "@/components/ui/data-table";
-import {BillboardColumn, columns} from "@/app/(dashboard)/[storeId]/(routes)/billboards/components/columns";
+import {CategoryColumn, columns} from "./columns";
 import ApiList from "@/components/ui/api-list";
-interface BillingClientProps {
-    data: BillboardColumn[]
+interface CategoryClientProps {
+    data: CategoryColumn[]
 }
-export const BillboardClient = ({
+export const CategoryClient = ({
     data
-}: BillingClientProps) => {
+}: CategoryClientProps) => {
     const router = useRouter();
     const params = useParams();
     return (
@@ -20,22 +20,22 @@ export const BillboardClient = ({
             <div className="flex-col">
                 <div className="flex items-center justify-between">
                     <Heading
-                        title={`Billboards (${data.length})`}
-                        description="Manage billboards for your store"
+                        title={`Categories (${data.length})`}
+                        description="Manage cateories for your store"
                     />
-                    <Button onClick={() => router.push(`/${params.storeId}/billboards/new`)}>
+                    <Button onClick={() => router.push(`/${params.storeId}/categories/new`)}>
                         <Plus className="mr-4 h-4 w-4"/>
                         Add New
                     </Button>
                 </div>
             </div>
             <Separator/>
-            <DataTable searchKey="label" columns={columns} data={data}/>
+            <DataTable searchKey="name" columns={columns} data={data}/>
             <Heading
                 title={`API`}
-                description="API calls for billboards"
+                description="API calls for categories"
             />
-            <ApiList entityName="billboards" entityIdName="billboardId"/>
+            <ApiList entityName="categories" entityIdName="categoryId"/>
         </>
     )
 }
