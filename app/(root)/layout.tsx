@@ -13,6 +13,7 @@ const SetupLayout = async ({
         return redirect('/sign-in')
     }
     // @ts-ignore
+   // const billboard = await db.billboard
     const store = await db.store.findFirst({
         where: {
             userId
