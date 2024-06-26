@@ -9,7 +9,7 @@ import {db} from "@/lib/db";
 const Navbar = async () => {
     const { userId } = auth();
     if(!userId){
-        redirect('/sign-in');
+        return redirect('/sign-in');
     }
     // @ts-ignore
     const stores = await db.store.findMany({

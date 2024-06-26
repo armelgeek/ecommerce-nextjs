@@ -9,9 +9,8 @@ const SetupLayout = async ({
     children: React.ReactNode
 }) => {
     const {userId} = auth()
-    if(!userId) {
-        redirect('/sign-in');
-        return  null;
+    if (!userId) {
+        return redirect('/sign-in')
     }
     // @ts-ignore
     const store = await db.store.findFirst({
@@ -20,7 +19,7 @@ const SetupLayout = async ({
         }
     })
     if(store){
-        redirect(`/${store.id}`)
+        return redirect(`/${store.id}`)
     }
 
     return (

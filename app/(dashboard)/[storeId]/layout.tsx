@@ -11,8 +11,8 @@ export default async function DashboardLayout({
     params: { storeId: string}
 }) {
     const {userId} = auth()
-    if(!userId) {
-        redirect('/sign-in');
+    if (!userId) {
+        return redirect('/sign-in')
     }
     // @ts-ignore
     const store = await db.store.findFirst({
@@ -22,7 +22,7 @@ export default async function DashboardLayout({
         }
     })
     if(!store) {
-        redirect('/');
+        return redirect('/');
     }
     return (
         <>
