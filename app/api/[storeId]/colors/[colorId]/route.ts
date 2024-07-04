@@ -3,7 +3,7 @@ import {auth} from "@clerk/nextjs/server";
 import {db} from "@/lib/db";
 
 export async function PATCH(req: Request, { params}: {params: {
-    sizeId: string,
+    colorId: string,
     storeId: string
 }}) {
     try {
@@ -21,8 +21,8 @@ export async function PATCH(req: Request, { params}: {params: {
         if(!value){
             return new NextResponse('Image URL is required', { status: 400})
         }
-        if(!params.sizeId){
-            return new NextResponse('Size id is required', { status:400 })
+        if(!params.colorId){
+            return new NextResponse('Color id is required', { status:400 })
         }
 
         // @ts-ignore
@@ -36,9 +36,9 @@ export async function PATCH(req: Request, { params}: {params: {
             return new NextResponse('Unauthorized', {status: 403})
         }
         // @ts-ignore
-        const size = await db.size.updateMany({
+        const color = await db.color.updateMany({
             where: {
-                id: params.sizeId
+                id: params.colorId
             },
             data: {
                 name,
@@ -46,16 +46,16 @@ export async function PATCH(req: Request, { params}: {params: {
                 storeId: params.storeId
             }
         })
-        return NextResponse.json(size);
+        return NextResponse.json(color);
     } catch (err) {
-        console.log('[SIZES_PATCH] Error');
+        console.log('[COLORS_PATCH] Error');
         return new NextResponse('Internal error', { status: 500})
     }
 
 }
 
 export async function DELETE(req: Request, { params}: {params: {
-    sizeId: string,
+    colorId: string,
     storeId: string
 }}) {
     try {
@@ -64,8 +64,8 @@ export async function DELETE(req: Request, { params}: {params: {
             return new NextResponse('Unauthorized', { status: 401});
         }
 
-        if(!params.sizeId){
-            return new NextResponse('Size id is required', { status:400 })
+        if(!params.colorId){
+            return new NextResponse('Color id is required', { status:400 })
         }
         // @ts-ignore
         const storeByUserId = await db.store.findFirst({
@@ -78,14 +78,14 @@ export async function DELETE(req: Request, { params}: {params: {
             return new NextResponse('Unauthorized', {status: 403})
         }
         // @ts-ignore
-        const size = await db.size.deleteMany({
+        const color = await db.color.deleteMany({
             where: {
-                id: params.sizeId
+                id: params.colorId
             }
         })
-        return NextResponse.json(size);
+        return NextResponse.json(color);
     } catch (err) {
-        console.log('[SIZE_DELETE] Error');
+        console.log('[COLOR_DELETE] Error');
         return new NextResponse('Internal error', { status: 500})
     }
 
@@ -93,21 +93,21 @@ export async function DELETE(req: Request, { params}: {params: {
 
 
 export async function GET(req: Request, { params}: {params: {
-        sizeId: string
+        colorId: string
     }}) {
     try {
-        if(!params.sizeId){
-            return new NextResponse('Size id is required', { status:400 })
+        if(!params.colorId){
+            return new NextResponse('Color id is required', { status:400 })
         }
         // @ts-ignore
-        const size = await db.size.findUnique({
+        const color = await db.color.findUnique({
             where: {
-                id: params.sizeId
+                id: params.colorId
             }
         })
-        return NextResponse.json(size);
+        return NextResponse.json(color);
     } catch (err) {
-        console.log('[SIZE_DELETE] Error');
+        console.log('[COLOR_DELETE] Error');
         return new NextResponse('Internal error', { status: 500})
     }
 
