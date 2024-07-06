@@ -11,7 +11,7 @@ const Currency = ({
         setIsMounted(true);
     }, [isMounted]);
     return (
-        <div className="font-semibod">
+        <div className="font-semibold">
             {formatter.format(Number(value))}
         </div>
     );

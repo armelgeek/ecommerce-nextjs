@@ -5,6 +5,8 @@ import Image from "next/image";
 import IconButton from "@/components/ui/icon-button";
 import {Expand, ShoppingCart} from "lucide-react";
 import Currency from "@/components/ui/currency";
+import {useRouter} from "next/navigation";
+import Link from "next/link";
 interface ProductProps {
     item: Product & {
         images: any
@@ -13,9 +15,12 @@ interface ProductProps {
     };
 }
 const ProductCard = ({item}: ProductProps) => {
-    // @ts-ignore
+    const router = useRouter();
+    const handleClick = () => {
+      console.log('hello leka');
+    }
     return (
-        <div key={item.id} className="bg-white group cursor-pointer rounded-xl border p-3 space-y-4">
+        <Link href={`/products/${item?.id}`} onClick={handleClick} key={item.id} className="bg-white group cursor-pointer rounded-xl border p-3 space-y-4">
             <div className="aspect-square rounded-xl bg-gray-100 relative">
                 <Image
                     className="aspect-square rounded-md object-cover"
@@ -46,9 +51,9 @@ const ProductCard = ({item}: ProductProps) => {
                 </div>
             </div>
             <div className="flex items-center justify-between">
-                <Currency value={item?.price}/>
+                <Currency value={item.price}/>
             </div>
-        </div>
+        </Link>
     );
 };
 

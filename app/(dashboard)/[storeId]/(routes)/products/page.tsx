@@ -5,6 +5,7 @@ import {db} from "@/lib/db";
 import {ProductColumn} from "./components/columns";
 import {formatter} from "@/lib/utils";
 import {Product} from "@prisma/client";
+import Navbar from "@/components/Navbar";
 
 const ProductsPage = async ({
     params }:{
@@ -37,12 +38,15 @@ const ProductsPage = async ({
         createdAt: format(product.createdAt, "MMM dd, yyyy")
     }))
     return (
+        <>
+     
         <div className="flex-col">
             <div className="flex-1 space-y-4 p-8 pt-6">
                 <ProductClient
                     data={formattedProducts}/>
             </div>
         </div>
+        </>
     );
 };
 
